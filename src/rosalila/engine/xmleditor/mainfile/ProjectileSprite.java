@@ -14,6 +14,7 @@ import nu.xom.ParsingException;
  * @author oscarr
  */
 public final class ProjectileSprite {
+
     private String mPath;
     private float mScale;
     private boolean mToOpponent;
@@ -22,7 +23,6 @@ public final class ProjectileSprite {
     private int mIgnoreRed;
     private int mIgnoreBlue;
     private int mIgnoreGreen;
-    
     private static final String ELEMENT_NAME = "Sprite";
     private static final String PATH_ATT_NAME = "path";
     private static final String SCALE_ATT_NAME = "scale";
@@ -32,13 +32,18 @@ public final class ProjectileSprite {
     private static final String IGNORE_RED_ATT_NAME = "ignore_red";
     private static final String IGNORE_BLUE_ATT_NAME = "ignore_blue";
     private static final String IGNORE_GREEN_ATT_NAME = "ignore_green";
-    
+
     public ProjectileSprite() {
-        this("",1.0f,false,0,0,0,0,0);
+        this("", 1.0f, false, 0, 0, -1, -1, -1);
     }
-    
-    public ProjectileSprite(String path,float scale,boolean toOpponent,int alignX,
-            int alignY,int ignoreRed,int ignoreBlue,int ignoreGreen) {
+
+    public ProjectileSprite(String path, float scale, boolean toOpponent, int alignX,
+            int alignY) {
+        this(path, scale, toOpponent, alignX, alignY, -1, -1, -1);
+    }
+
+    public ProjectileSprite(String path, float scale, boolean toOpponent, int alignX,
+            int alignY, int ignoreRed, int ignoreBlue, int ignoreGreen) {
         setPath(path);
         setScale(scale);
         setAffectsToOpponent(toOpponent);
@@ -48,64 +53,88 @@ public final class ProjectileSprite {
         setIgnoreBlue(ignoreBlue);
         setIgnoreGreen(ignoreGreen);
     }
-    
-    public ProjectileSprite(Element e) 
-            throws ParsingException,NumberFormatException,NoSuchAttributeException {
-        if ( e.getLocalName().compareTo(ELEMENT_NAME) != 0 )throw new ParsingException("Not a valid projectile sprite element");
-        
+
+    public ProjectileSprite(Element e)
+            throws ParsingException, NumberFormatException, NoSuchAttributeException {
+        if (e.getLocalName().compareTo(ELEMENT_NAME) != 0) {
+            throw new ParsingException("Not a valid projectile sprite element");
+        }
+
         String attribute = e.getAttributeValue(PATH_ATT_NAME);
-        if ( attribute == null )throw new NoSuchAttributeException("Missing path attribute in projectile sprite element");
+        if (attribute == null) {
+            throw new NoSuchAttributeException("Missing path attribute in projectile sprite element");
+        }
         setPath(attribute);
-        
+
         attribute = e.getAttributeValue(SCALE_ATT_NAME);
-        if ( attribute == null )throw new NoSuchAttributeException("Missing scale attribute in projectile sprite element");
+        if (attribute == null) {
+            throw new NoSuchAttributeException("Missing scale attribute in projectile sprite element");
+        }
         setScale(Float.parseFloat(attribute));
-        
+
         attribute = e.getAttributeValue(TO_OPPONENT_ATT_NAME);
-        if ( attribute == null )throw new NoSuchAttributeException("Missing to opponent attribute in projectile sprite element");
-        if ( attribute.compareTo("yes") !=0 && attribute.compareTo("no") !=0 )throw new ParsingException("Incorrect to opponent value in sprite element");
-        setAffectsToOpponent(attribute.compareTo("yes")==0? true:false);
-        
+        if (attribute == null) {
+            throw new NoSuchAttributeException("Missing to opponent attribute in projectile sprite element");
+        }
+        if (attribute.compareTo("yes") != 0 && attribute.compareTo("no") != 0) {
+            throw new ParsingException("Incorrect to opponent value in sprite element");
+        }
+        setAffectsToOpponent(attribute.compareTo("yes") == 0 ? true : false);
+
         attribute = e.getAttributeValue(ALIGN_X_ATT_NAME);
-        if ( attribute == null )throw new NoSuchAttributeException("Missing align x attribute in projectile sprite element");
+        if (attribute == null) {
+            throw new NoSuchAttributeException("Missing align x attribute in projectile sprite element");
+        }
         setAlignX(Integer.parseInt(attribute));
-        
+
         attribute = e.getAttributeValue(ALIGN_Y_ATT_NAME);
-        if ( attribute == null )throw new NoSuchAttributeException("Missing align y attribute in projectile sprite element");
+        if (attribute == null) {
+            throw new NoSuchAttributeException("Missing align y attribute in projectile sprite element");
+        }
         setAlignY(Integer.parseInt(attribute));
-        
+
         //TODO check if ignore fields are mandatory
         attribute = e.getAttributeValue(IGNORE_BLUE_ATT_NAME);
-        if ( attribute == null )
-            setIgnoreBlue(0);
-        else
+        if (attribute == null) {
+            setIgnoreBlue(-1);
+        } else {
             setIgnoreBlue(Integer.parseInt(attribute));
-        
+        }
+
         attribute = e.getAttributeValue(IGNORE_GREEN_ATT_NAME);
-        if ( attribute == null )
-            setIgnoreGreen(0);
-        else
+        if (attribute == null) {
+            setIgnoreGreen(-1);
+        } else {
             setIgnoreGreen(Integer.parseInt(attribute));
-        
+        }
+
         attribute = e.getAttributeValue(IGNORE_RED_ATT_NAME);
-        if ( attribute == null )
-            setIgnoreRed(0);
-        else
-            setIgnoreRed(Integer.parseInt(attribute));        
-        
+        if (attribute == null) {
+            setIgnoreRed(-1);
+        } else {
+            setIgnoreRed(Integer.parseInt(attribute));
+        }
+
     }
-    
+
     public Element generateXml() {
         Element e = new Element(ELEMENT_NAME);
-        e.addAttribute(new Attribute(PATH_ATT_NAME,mPath));
-        e.addAttribute(new Attribute(SCALE_ATT_NAME,String.valueOf(mScale)) );
-        e.addAttribute(new Attribute(ALIGN_X_ATT_NAME,String.valueOf(mAlignX)));
-        e.addAttribute(new Attribute(ALIGN_Y_ATT_NAME,String.valueOf(mAlignY) ));
-        e.addAttribute(new Attribute(TO_OPPONENT_ATT_NAME, mToOpponent?"yes":"no" ));
-        e.addAttribute(new Attribute(IGNORE_BLUE_ATT_NAME,String.valueOf(mIgnoreBlue)));
-        e.addAttribute(new Attribute(IGNORE_GREEN_ATT_NAME,String.valueOf(mIgnoreGreen)));
-        e.addAttribute(new Attribute(IGNORE_RED_ATT_NAME,String.valueOf(mIgnoreRed)));
-        
+        e.addAttribute(new Attribute(PATH_ATT_NAME, mPath));
+        e.addAttribute(new Attribute(SCALE_ATT_NAME, String.valueOf(mScale)));
+        e.addAttribute(new Attribute(ALIGN_X_ATT_NAME, String.valueOf(mAlignX)));
+        e.addAttribute(new Attribute(ALIGN_Y_ATT_NAME, String.valueOf(mAlignY)));
+        e.addAttribute(new Attribute(TO_OPPONENT_ATT_NAME, mToOpponent ? "yes" : "no"));
+        if (mIgnoreBlue != -1) {
+            e.addAttribute(new Attribute(IGNORE_BLUE_ATT_NAME, String.valueOf(mIgnoreBlue)));
+        }
+        if (mIgnoreGreen != -1) {
+            e.addAttribute(new Attribute(IGNORE_GREEN_ATT_NAME, String.valueOf(mIgnoreGreen)));
+        }
+
+        if (mIgnoreRed != -1) {
+            e.addAttribute(new Attribute(IGNORE_RED_ATT_NAME, String.valueOf(mIgnoreRed)));
+        }
+
         return e;
     }
 
@@ -183,7 +212,6 @@ public final class ProjectileSprite {
         return mIgnoreRed;
     }
 
-
     public void setIgnoreRed(int ignoreRed) {
         this.mIgnoreRed = ignoreRed;
     }
@@ -196,7 +224,6 @@ public final class ProjectileSprite {
         this.mIgnoreBlue = ignoreBlue;
     }
 
-    
     public int getIgnoreGreen() {
         return mIgnoreGreen;
     }
