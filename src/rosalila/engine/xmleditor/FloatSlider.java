@@ -1,4 +1,4 @@
-package rosalilaenginexmleditor;
+package rosalila.engine.xmleditor;
 
 import javax.swing.*;
 

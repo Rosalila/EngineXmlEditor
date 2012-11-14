@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package rosalilaenginexmleditor;
+package rosalila.engine.xmleditor;
 
+import rosalila.engine.xmleditor.spritesfile.SpriteElement;
+import rosalila.engine.xmleditor.spritesfile.SpritesFile;
+import rosalila.engine.xmleditor.spritesfile.MoveElement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -98,7 +101,7 @@ public class MainWindow extends javax.swing.JFrame {
         mSpritePathLabel = new javax.swing.JLabel();
         mSpritePathTextbox = new javax.swing.JTextField();
         mFindSpriteButton = new javax.swing.JButton();
-        mScaleSpriteSlider = new FloatSlider();
+        mScaleSpriteSlider = new rosalila.engine.xmleditor.FloatSlider();
         mScaleSpriteLabel = new javax.swing.JLabel();
         mAlignSpriteXLabel = new javax.swing.JLabel();
         mSpriteAlignXSpinner = new javax.swing.JSpinner();

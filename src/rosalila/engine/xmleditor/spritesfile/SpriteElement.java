@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package rosalilaenginexmleditor;
+package rosalila.engine.xmleditor.spritesfile;
 
 import java.awt.Image;
 import java.text.ParseException;
@@ -22,8 +22,8 @@ public final class SpriteElement {
     private boolean mToOponent;
     private float mScale;
     private String mImagePath;
-    private float mAlignX;
-    private float mAlignY;
+    private int mAlignX;
+    private int mAlignY;
     private int mIndex;
     
     private static String INDEX_ATT_NAME = "frame_number";
@@ -34,7 +34,7 @@ public final class SpriteElement {
     private static String ALIGN_X_ATT_NAME = "align_x";
     private static String ALIGN_Y_ATT_NAME = "align_y";
 
-    public SpriteElement(String image, float alignX, float alignY, int index,
+    public SpriteElement(String image, int alignX, int alignY, int index,
             String variableName, float scale, boolean toOpponent) {
         setImagePath(image);
         setAlignX(alignX);
@@ -45,7 +45,8 @@ public final class SpriteElement {
         setVariableName(variableName);
     }
     
-    public SpriteElement(Element e) throws ParsingException {
+    public SpriteElement(Element e) throws ParsingException,NumberFormatException {
+        if ( e.getLocalName().compareTo(ELEMENT_NAME) != 0 )throw new ParsingException("Not a valid sprite element");
         
         //TODO validate element is invalid or malformed
         String attribute = e.getAttributeValue(PATH_ATT_NAME);
@@ -54,11 +55,11 @@ public final class SpriteElement {
         
         attribute = e.getAttributeValue(ALIGN_X_ATT_NAME);
         if ( attribute == null ) throw new ParsingException("Missing align x attribute in sprite element");
-        setAlignX(Float.parseFloat(attribute));
+        setAlignX(Integer.parseInt(attribute));
         
         attribute = e.getAttributeValue(ALIGN_Y_ATT_NAME);
         if ( attribute == null ) throw new ParsingException("Missing align y attribute in sprite element");
-        setAlignY(Float.parseFloat(attribute));
+        setAlignY(Integer.parseInt(attribute));
         
         attribute = e.getAttributeValue(INDEX_ATT_NAME);
         if ( attribute == null ) throw new ParsingException("Missing frame number attribute in sprite element");
@@ -70,7 +71,9 @@ public final class SpriteElement {
         
         attribute = e.getAttributeValue(TO_OPPONENT_ATT_NAME);
         if ( attribute == null ) throw new ParsingException("Missing to opponent attribute in sprite element");
-        setToOponent(Boolean.parseBoolean(attribute));
+        if ( attribute.compareTo("yes") !=0 && attribute.compareTo("no") !=0 )throw new ParsingException("Incorrect to opponent value in sprite element");
+                
+        setToOponent(attribute.compareTo("yes")==0? true:false);
         
         attribute = e.getAttributeValue(VARIABLE_ATT_NAME);
         if ( attribute == null ) throw new ParsingException("Missing variable name attribute in sprite element");
@@ -94,28 +97,28 @@ public final class SpriteElement {
     /**
      * @return the mAlignX
      */
-    public float getAlignX() {
+    public int getAlignX() {
         return mAlignX;
     }
 
     /**
      * @param mAlignX the mAlignX to set
      */
-    public void setAlignX(float alignX) {
+    public void setAlignX(int alignX) {
         this.mAlignX = alignX;
     }
 
     /**
      * @return the mAlignY
      */
-    public float getAlignY() {
+    public int getAlignY() {
         return mAlignY;
     }
 
     /**
      * @param mAlignY the mAlignY to set
      */
-    public void setAlignY(float alignY) {
+    public void setAlignY(int alignY) {
         this.mAlignY = alignY;
     }
 
@@ -203,7 +206,7 @@ public final class SpriteElement {
         Attribute scaleAtt = new Attribute(SCALE_ATT_NAME,String.valueOf(mScale));
         Attribute alignXAtt = new Attribute(ALIGN_X_ATT_NAME,String.valueOf(mAlignX));
         Attribute alignYAtt = new Attribute(ALIGN_Y_ATT_NAME,String.valueOf(mAlignY));
-        Attribute toOpponentAtt = new Attribute(TO_OPPONENT_ATT_NAME, String.valueOf(mToOponent));
+        Attribute toOpponentAtt = new Attribute(TO_OPPONENT_ATT_NAME, mToOponent?"yes":"no");
         e.addAttribute(variableAtt);
         e.addAttribute(indexAtt);
         e.addAttribute(imagePathAtt);

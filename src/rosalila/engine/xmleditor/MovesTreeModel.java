@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package rosalilaenginexmleditor;
+package rosalila.engine.xmleditor;
 
+import rosalila.engine.xmleditor.spritesfile.SpriteElement;
+import rosalila.engine.xmleditor.spritesfile.SpritesFile;
+import rosalila.engine.xmleditor.spritesfile.MoveElement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.TreeModelEvent;

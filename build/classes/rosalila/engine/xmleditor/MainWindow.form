@@ -271,7 +271,7 @@
                 </Component>
                 <Component class="javax.swing.JSlider" name="mScaleSpriteSlider">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new rosalilaenginexmleditor.FloatSlider()"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new rosalila.engine.xmleditor.FloatSlider()"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="mScaleSpriteLabel">
