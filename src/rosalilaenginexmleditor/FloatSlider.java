@@ -2,33 +2,22 @@ package rosalilaenginexmleditor;
 
 import javax.swing.*;
 
-/**
- * <b>Programm:</b> WaveJNI<br>
- * <b>Copyright:</b> 2002 Andreas Gohr, Frank Schubert, Milan Altenburg<br>
- * <b>License:</b> GPL2 or higher<br>
- * <br>
- * <b>Info:</b> This JSlider uses floats for its values
- */
-public class FloatJSlider extends JSlider{
+public class FloatSlider extends JSlider{
   
   static final float FLOAT_MINIMUM = 0.0f;
   static final float FLOAT_MAXIMUM = 100.0f;
   static final float FLOAT_MIDDLE = 50.0f;
   static final int PRECISION_MULTIPLIER  = 100;
-  /**
-   * Constructor - initializes with 0.0,100.0,50.0
-   */
-  public FloatJSlider(){
+
+  
+  public FloatSlider(){
     super();
     setFloatMinimum(FLOAT_MINIMUM);
     setFloatMaximum(FLOAT_MAXIMUM);
     setFloatValue(FLOAT_MIDDLE);
   }
-
-  /**
-   * Constructor
-   */
-  public FloatJSlider(float min, float max, float val){
+  
+  public FloatSlider(float min, float max, float val){
     super();
     setFloatMinimum(min);
     setFloatMaximum(max);

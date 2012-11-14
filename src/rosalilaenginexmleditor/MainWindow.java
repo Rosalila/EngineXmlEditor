@@ -98,7 +98,7 @@ public class MainWindow extends javax.swing.JFrame {
         mSpritePathLabel = new javax.swing.JLabel();
         mSpritePathTextbox = new javax.swing.JTextField();
         mFindSpriteButton = new javax.swing.JButton();
-        mScaleSpriteSlider = new FloatJSlider();
+        mScaleSpriteSlider = new FloatSlider();
         mScaleSpriteLabel = new javax.swing.JLabel();
         mAlignSpriteXLabel = new javax.swing.JLabel();
         mSpriteAlignXSpinner = new javax.swing.JSpinner();
@@ -395,7 +395,7 @@ public class MainWindow extends javax.swing.JFrame {
             } else if (node.getClass() == SpriteElement.class) {
                 SpriteElement s = (SpriteElement) node;
                 mSpritePathTextbox.setText(s.getImagePath());
-                ((FloatJSlider) mScaleSpriteSlider).setFloatValue(s.getScale());
+                ((FloatSlider) mScaleSpriteSlider).setFloatValue(s.getScale());
                 mSpriteAlignXSpinner.setValue(s.getAlignX());
                 mSpriteAlignYSpinner.setValue(s.getAlignY());
                 mSpriteToOponnentCheckbox.setSelected(s.affectsOponent());
