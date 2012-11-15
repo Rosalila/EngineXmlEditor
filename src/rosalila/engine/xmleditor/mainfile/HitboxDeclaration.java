@@ -15,7 +15,7 @@ import nu.xom.ParsingException;
 public class HitboxDeclaration {
     private String mVariable;
     
-    private static final String ELEMENT_NAME = "hitboxes";
+    public static final String ELEMENT_NAME = "hitboxes";
     private static final String VARIABLE_ATT_NAME = "variable";
     
     public HitboxDeclaration(String variable) {

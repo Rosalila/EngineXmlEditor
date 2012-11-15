@@ -33,7 +33,7 @@ public class SpritesFile {
         mMoves = animations;
     }
     
-    public void readFromFile() throws ParsingException, ValidityException, IOException  {
+    public void readFromFile() throws ParsingException, IOException  {
         Builder builder = new Builder();   
         Document doc = builder.build(new File(mPath));
         Element root = doc.getRootElement();

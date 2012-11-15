@@ -16,7 +16,7 @@ public class StringDeclaration {
     private String mVariable;
     private String mValue;
     
-    private static final String ELEMENT_NAME = "string";
+    public static final String ELEMENT_NAME = "string";
     private static final String VARIABLE_ATT_NAME = "variable";
     private static final String VALUE_ATT_NAME = "value";
     

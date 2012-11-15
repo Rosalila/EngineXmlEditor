@@ -19,11 +19,7 @@ public final class IntegerDeclaration {
     private int mValue;
     private static final String VARIABLE_ATT_NAME = "variable";
     private static final String VALUE_ATT_NAME = "value";
-    private static final String ELEMENT_NAME = "integer";
-
-    public IntegerDeclaration() {
-        this("", 0);
-    }
+    public static final String ELEMENT_NAME = "integer";
 
     public IntegerDeclaration(String variable, int value) {
         setValue(value);
